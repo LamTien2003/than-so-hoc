@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Image from "next/image";
+
+import StarImage from "@/assets/images/stars.png";
+import Footer from "@/components/Footer/Footer";
+import Header from "@/components/Header/Header";
+import { ThemeProvider } from "@/components/ThemeProvider";
+
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -16,7 +23,41 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${inter.className} relative`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className="fixed top-0 left-0 right-0 bottom-0 -z-50">
+            <Image
+              src={StarImage}
+              alt=""
+              className="image-overlay animate-pulse opacity-30 -z-50"
+            />
+            <Image
+              src={StarImage}
+              alt=""
+              className="image-overlay -scale-x-[1] -scale-y-[1]  animate-pulse opacity-30 -z-50"
+            />
+            <Image
+              src={StarImage}
+              alt=""
+              className="image-overlay -scale-x-[1]  animate-pulse opacity-30 -z-50"
+            />
+            <Image
+              src={StarImage}
+              alt=""
+              className="image-overlay -scale-y-[1]  animate-pulse opacity-30 -z-50"
+            />
+          </div>
+
+          <Header />
+          {children}
+          <Footer />
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
